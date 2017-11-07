@@ -6,6 +6,7 @@ class Fib(object):
     def __init__(self):
         self.a,self.b = 0, 1
 
+    # 类想被用于for ... in循环
     def __iter__(self):
         return self
 
