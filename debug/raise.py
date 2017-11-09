@@ -1,3 +1,4 @@
+# raise语句抛出一个错误
 class FooError(ValueError):
     pass
 
