@@ -3,6 +3,7 @@
 
 from io import StringIO
 
+# StringIO顾名思义就是在内存中读写str
 f = StringIO()
 f.write('hello, world')
 f.write('! ')
