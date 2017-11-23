@@ -11,6 +11,7 @@ def change_it(n):
     balance = balance + n
     balance = balance - n
 
+# 锁只有一个，无论多少线程，同一时刻最多只有一个线程持有该锁
 def run_thread(n):
     for i in range(10000):
         lock.acquire()
