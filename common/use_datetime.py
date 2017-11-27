@@ -3,6 +3,7 @@
 
 from datetime import datetime, timedelta, timezone
 
+#datetime.now()返回当前日期和时间
 now = datetime.now()
 print('now=', now)
 print('type(now)=', type(now))
