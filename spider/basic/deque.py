@@ -21,7 +21,7 @@ while queue:
 
     print('已抓取：'+str(cnt)+' 正在抓取 <--- '+ url)
     cnt += 1
-    urlop = urllib.request.urlopen(url)
+    urlop = urllib.request.urlopen(url, timeout=2)
     if 'html' not in urlop.getheader('Content-Type'):
         continue
 
