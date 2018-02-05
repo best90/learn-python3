@@ -2,8 +2,10 @@
 Learn Python 3 example code.
 
 ### Python3 实战项目
-[web demo](./web)
-[spider](./spider)
+
+* [web demo](./web)
+
+* [spider](./spider)
 
 ### Python3 内置函数
 
@@ -141,4 +143,11 @@ vars()  返回对象object的属性和属性值的字典对象
 
 zip()  将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表
 
-__import__()  动态加载类和函数
+\_\_import__()  动态加载类和函数
+
+### Python小知识点
+* 保留关键字
+
+['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+
+* 在函数中接收元组与字典：使用 * 或 ** 作为元组或字典的前缀，来使它们作为一个参数为函数所接收
