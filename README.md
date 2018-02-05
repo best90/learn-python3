@@ -1,6 +1,10 @@
 ## learn-python3
 Learn Python 3 example code.
 
+### Python3 实战项目
+[web demo](./web)
+[spider](./spider)
+
 ### Python3 内置函数
 
 abs() 数字的绝对值
