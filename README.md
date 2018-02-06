@@ -1,10 +1,29 @@
 ## learn-python3
 Learn Python 3 example code.
 
+### Python3 学习
+
+* [基础](./basic)
+* [函数](./function)
+* [高级特性](./advance)
+* [函数式编程](./functional)
+* [模块](./module)
+* [面向对象编程](./oop)
+* [错误、调试和测试](./debug)
+* [IO编程](./io)
+* [进程和线程](./task)
+* [常用内建模块](./common)
+* [常用第三方模块](./packages)
+* [图形界面](./gui)
+* [网络编程](./socket)
+* [电子邮件](./mail)
+* [数据库](./database)
+* [异步IO](./async)
+
+
 ### Python3 实战项目
 
 * [web demo](./web)
-
 * [spider](./spider)
 
 ### Python3 内置函数
