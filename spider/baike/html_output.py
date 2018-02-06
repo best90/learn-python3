@@ -6,7 +6,7 @@ class HtmlOutput(object):
         self.data = []
 
     def collect_data(self, data):
-        if data in None:
+        if data is None:
             return
         self.data.append(data)
 

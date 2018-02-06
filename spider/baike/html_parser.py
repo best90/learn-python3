@@ -9,7 +9,7 @@ import urllib.parse
 class HtmlParser(object):
     def _get_new_urls(self, page_url, soup):
         new_urls = set()
-        links = soup.find_all('a', href=re.compile(r"/view/\d+\.html"))
+        links = soup.find_all('a', href=re.compile(r"/item/.*?"))
         for link in links:
             new_url = link['href']
             new_full_url = urllib.parse.urljoin(page_url, new_url)
@@ -29,7 +29,7 @@ class HtmlParser(object):
 
         return res_data
 
-    def parser(self, page_url, html_content):
+    def parse(self, page_url, html_content):
         if page_url is None or html_content is None:
             return
 
