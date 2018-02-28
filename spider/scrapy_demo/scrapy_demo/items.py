@@ -25,4 +25,4 @@ class ScrapyDemoItem(scrapy.Item):
     category = scrapy.Field()
     #小说编号
     name_id = scrapy.Field()
-    pass
+    #pass

@@ -42,4 +42,6 @@ class Mysplider(scrapy.Spider):
         item['category'] = str(category).replace('/','')
         item['author'] = str(author).replace('\xa0','').replace('/','')
         item['name_id'] = str(bash_url)[-6:-1].replace('/','')
+        item['serial_status'] = 0
+        item['serial_number'] = 0
         return item
