@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from scrapy.http import Request
 from spider.scrapy_demo.scrapy_demo.items import ScrapyDemoItem
 from spider.scrapy_demo.scrapy_demo.items import ContentItem
+from spider.scrapy_demo.scrapy_demo.dbpipelines.sql import Sql
 
 class Mysplider(scrapy.Spider):
     name = 'scrapy_demo'
@@ -14,7 +15,7 @@ class Mysplider(scrapy.Spider):
     bashurl = '.html'
 
     def start_requests(self):
-        for i in range(1, 11):
+        for i in range(1, 2):
             url = self.bash_url + str(i) + '_1' + self.bashurl
             yield Request(url, self.parse)
 
@@ -55,7 +56,12 @@ class Mysplider(scrapy.Spider):
             num = num + 1
             chapter_url = response.url + url[0]
             chapter_name = url[1]
-            yield Request(chapter_url, callback=self.get_chapter_content, meta={'num': num, 'name_id': response.meta['name_id'], 'chapter_name': chapter_name, 'chapter_url': chapter_url})
+            result = Sql.select_chapter(chapter_url)
+            if result[0] == 1:
+                print('章节已保存！')
+                pass
+            else:
+                yield Request(chapter_url, callback=self.get_chapter_content, meta={'num': num, 'name_id': response.meta['name_id'], 'chapter_name': chapter_name, 'chapter_url': chapter_url})
 
     def get_chapter_content(self, response):
         item = ContentItem()
@@ -65,5 +71,5 @@ class Mysplider(scrapy.Spider):
         item['chapter_url'] = response.meta['chapter_url']
         content = BeautifulSoup(response.text, 'lxml').find('dd', id='contents').get_text()
         item['chapter_content'] = str(content).replace('\xa0', '')
-        return
+        return item
 

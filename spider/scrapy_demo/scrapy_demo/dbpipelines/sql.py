@@ -34,3 +34,25 @@ class Sql:
         }
         cur.execute(sql, value)
         return cur.fetchall()[0]
+
+    @classmethod
+    def insert_chapter(cls, chapter_name, content, name_id, num_id, url):
+        sql = 'INSERT INTO novel_chapter(`chapter_name`, `content`, `name_id`, `num_id`, `url`) VALUES (%(chapter_name)s,%(content)s,%(name_id)s,%(num_id)s,%(url)s)'
+        value  = {
+            'chapter_name': chapter_name,
+            'content': content,
+            'name_id': name_id,
+            'num_id': num_id,
+            'url': url
+        }
+        cur.execute(sql, value)
+        connect.commit()
+
+    @classmethod
+    def select_chapter(cls, url):
+        sql = 'SELECT EXISTS(SELECT 1 FROM novel_chapter WHERE url=%(url)s)'
+        value = {
+            'url': url
+        }
+        cur.execute(sql, value)
+        return cur.fetchall()[0]
