@@ -26,3 +26,16 @@ class ScrapyDemoItem(scrapy.Item):
     #小说编号
     name_id = scrapy.Field()
     #pass
+
+
+class ContentItem(scrapy.Item):
+    #小说编号
+    name_id = scrapy.Field()
+    # 章节内容
+    chapter_content = scrapy.Field()
+    # 用于绑定章节顺序
+    num = scrapy.Field()
+    # 章节地址
+    chapter_url = scrapy.Field()
+    # 章节名字
+    chapter_name = scrapy.Field()

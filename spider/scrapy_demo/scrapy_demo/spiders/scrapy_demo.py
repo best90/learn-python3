@@ -5,6 +5,7 @@ import scrapy
 from bs4 import BeautifulSoup
 from scrapy.http import Request
 from spider.scrapy_demo.scrapy_demo.items import ScrapyDemoItem
+from spider.scrapy_demo.scrapy_demo.items import ContentItem
 
 class Mysplider(scrapy.Spider):
     name = 'scrapy_demo'
@@ -30,9 +31,9 @@ class Mysplider(scrapy.Spider):
             novel_name = td.find('a', target='_blank').get_text()
             novel_url = td.find('a')['href']
             #print(novel_name+':'+ novel_url)
-            yield Request(novel_url, callback=self.get_chapterurl, meta={'name':novel_name, 'url': novel_url})
+            yield Request(novel_url, callback=self.get_chapter_url, meta={'name':novel_name, 'url': novel_url})
 
-    def get_chapterurl(self, response):
+    def get_chapter_url(self, response):
         item = ScrapyDemoItem()
         item['name'] = str(response.meta['name']).replace('\xa0','')
         item['novel_url'] = response.meta['url']
@@ -44,4 +45,25 @@ class Mysplider(scrapy.Spider):
         item['name_id'] = str(bash_url)[-6:-1].replace('/','')
         item['serial_status'] = 0
         item['serial_number'] = 0
-        return item
+        yield item
+        yield Request(url=bash_url, callback=self.get_chapter, meta={'name_id': item['name_id']})
+
+    def get_chapter(self, response):
+        urls = re.findall(r'<td class="L"><a href="(.*?)">(.*?)</a></td>', response.text)
+        num = 0
+        for url in urls:
+            num = num + 1
+            chapter_url = response.url + url[0]
+            chapter_name = url[1]
+            yield Request(chapter_url, callback=self.get_chapter_content, meta={'num': num, 'name_id': response.meta['name_id'], 'chapter_name': chapter_name, 'chapter_url': chapter_url})
+
+    def get_chapter_content(self, response):
+        item = ContentItem()
+        item['num'] = response.meta['num']
+        item['name_id'] = response.meta['name_id']
+        item['chapter_name'] = response.meta['chapter_name'].replace('\xa0','')
+        item['chapter_url'] = response.meta['chapter_url']
+        content = BeautifulSoup(response.text, 'lxml').find('dd', id='contents').get_text()
+        item['chapter_content'] = str(content).replace('\xa0', '')
+        return
+
