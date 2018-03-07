@@ -23,8 +23,9 @@ if __name__ == '__main__':
     print('文章标题：%s' % title)
     print('文章页数：%d' % num)
 
+    total = num / 5.0
+    crawl_now = 1
     while True:
-        num = num / 5.0
         html = driver.page_source
         bs = BeautifulSoup(html, 'lxml')
         result = bs.find_all(class_='singlePage')
@@ -40,12 +41,16 @@ if __name__ == '__main__':
                         print('')
                 print(main_body.text)
             print('\n')
-        # TODO: 翻页报错，待解决
-        if num > 1:
-            page = driver.find_element_by_xpath("//div[@class='x-page next']")
-            driver.execute_script('arguments[0].scrollIntoView();',page[-1])
-            next_page = driver.find_element_by_xpath("//span[@class='next-text']")
+        if total > crawl_now:
+            if crawl_now == 1:
+                continue_read = driver.find_element_by_xpath("//div[@class='flod-button']")
+                continue_read.click()
+                time.sleep(1)
+            #page = driver.find_element_by_xpath("//div[@class='x-page next']")
+            #driver.execute_script('arguments[0].scrollIntoView();',page[-1])
+            next_page = driver.find_element_by_xpath("//div[@class='x-page next']")
             next_page.click()
             time.sleep(3)
+            crawl_now = crawl_now + 1
         else:
             break
